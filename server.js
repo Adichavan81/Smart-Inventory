@@ -23,6 +23,14 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 // ==========================================
+// ROOT HEALTH CHECK ROUTE
+// ==========================================
+app.get('/', (req, res) => {
+    res.json({ message: 'Smart Inventory API is running successfully!' });
+});
+
+
+// ==========================================
 // 1. AUTHENTICATION & REGISTRATION
 // ==========================================
 
@@ -226,6 +234,6 @@ app.get('/api/sales', authenticate, async (req, res) => {
     }
 });
 
-// Listen on 0.0.0.0 so external mobile devices on Wi-Fi can connect
+// Listen on port provided by Render environment or default to 5000
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => console.log(`Server running on http://192.168.1.104:${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
